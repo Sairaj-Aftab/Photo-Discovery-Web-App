@@ -70,6 +70,14 @@
 .footer-button button {
 }
 .footer-button .cancel {
+  background-color: #ffffff !important;
+  color: #010101 !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  padding: 5px 20px !important;
+  border-radius: 6px;
+  border: 1px solid #ddd;
 }
 .footer-button .next {
   background-color: #e4e6eb !important;
@@ -84,4 +92,21 @@
   background-color: #27ae60 !important;
   color: #ffffff !important;
   cursor: pointer !important;
+  border: none;
+  border-radius: 6px;
+}
+.footer-button .next.disabled {
+  background-color: #27ae5f69 !important;
+  color: #ffffff !important;
+  border: none;
+  border-radius: 6px;
+}
+
+.upload-icon {
+  width: 763px;
+  height: 440px;
+  font-size: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

@@ -6,6 +6,8 @@ import colors from "colors";
 import user from "./routes/user.js";
 import connectMongoDB from "./config/db.js";
 import errorHandler from "./middleware/errorHandler.js";
+import path from "path";
+const __dirname = path.resolve();
 // Init
 const app = express();
 env.config();
@@ -23,6 +25,7 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "api/public")));
 
 // Api routes
 app.use("/api/v1/user", user);

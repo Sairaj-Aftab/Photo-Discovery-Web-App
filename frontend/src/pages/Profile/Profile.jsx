@@ -1,9 +1,14 @@
 import { useState } from "react";
+import coverImg from "../../assets/cover.jpg";
 import EditProfile from "../EditProfile/EditProfile";
 import { MdOutlineLocationOn, MdOutlineMail } from "react-icons/md";
 import "./profile.css";
+import { useSelector } from "react-redux";
+import { authData } from "../../features/auth/authSlice";
+import Avatar from "../../components/Avatar";
 
 const Profile = () => {
+  const { auth } = useSelector(authData);
   const [showEditProfile, setShowEditProfile] = useState(false);
   return (
     <div className="profile">
@@ -12,23 +17,21 @@ const Profile = () => {
           <div className="profile-cover-pic">
             <img
               className="cover-pic"
-              src="https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=876&q=80"
+              src={
+                auth.coverPhoto ? `/profilecover/${auth.coverPhoto}` : coverImg
+              }
               alt=""
             />
-            <img
-              className="profile-pic"
-              src="https://images.unsplash.com/photo-1544502062-f82887f03d1c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=959&q=80"
-              alt=""
-            />
+            <img className="profile-pic" src={Avatar()} alt="" />
           </div>
-          <h1 className="profile-name">Sairaj Aftab</h1>
+          <h1 className="profile-name">{auth?.fullName}</h1>
           <h6 className="profile-address">
             <MdOutlineMail />
-            sairajaftab@gmail.com
+            {auth?.email}
           </h6>
           <h6 className="profile-address">
             <MdOutlineLocationOn />
-            Cox's Bazar, Bangladesh
+            {auth?.location}
           </h6>
           <div
             className="profile-edit-button"
@@ -43,9 +46,9 @@ const Profile = () => {
         <div className="all-skills">
           <h1 className="skill-title">Skills</h1>
           <div className="skill-tags">
-            <span>Designer</span>
-            <span>Developer</span>
-            <span>UI Designer</span>
+            {auth?.skills?.map((skill, index) => (
+              <span key={index}>{skill}</span>
+            ))}
           </div>
         </div>
         <div className="uploaded-images">

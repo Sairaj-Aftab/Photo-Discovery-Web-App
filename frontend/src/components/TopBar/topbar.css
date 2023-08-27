@@ -65,6 +65,26 @@
   border-radius: 8px;
   cursor: pointer;
 }
+.topbar .upload-button .submit-button {
+  position: relative;
+  border: 1px solid #d1d1d1;
+  color: #767676;
+  background-color: #ffffff;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.upload-button .submit-button input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  opacity: 0;
+}
 .topbar .upload-button .profile-button {
   width: 40px;
   height: 40px;

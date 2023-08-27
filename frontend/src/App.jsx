@@ -10,20 +10,22 @@ import { toastify } from "./utility/toast";
 
 function App() {
   const dispatch = useDispatch();
-  const { message, success } = useSelector(authData);
+  const { message, success, error } = useSelector(authData);
   useEffect(() => {
     dispatch(logedInMe());
+  }, [dispatch]);
 
-    // if (error) {
-    //   toastify(error);
-    // }
+  useEffect(() => {
+    if (error) {
+      toastify(error);
+    }
     if (message) {
       toastify(message, "success");
     }
-    if (message || success) {
+    if (message || success || error) {
       setMessageEmpty();
     }
-  }, [dispatch, message, success]);
+  }, [message, success, error]);
 
   return (
     <>

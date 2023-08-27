@@ -1,0 +1,100 @@
+.edit-profile form {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.edit-profile form .form-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 10px 10px 0 10px;
+}
+form .edit-image-upload {
+  display: flex;
+  gap: 10px;
+}
+form .edit-image-upload div {
+  border: 1px dashed #27ae60;
+  padding: 5px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #010101;
+  font-weight: 400;
+}
+form .edit-image-upload div:first-child {
+  position: relative;
+}
+form .edit-image-upload div:first-child input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+form .edit-image-upload div:last-child {
+  position: relative;
+}
+form .edit-image-upload div:last-child input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: pointer;
+  opacity: 0;
+}
+.edit-img-name {
+  margin-bottom: 5px;
+}
+.edit-img-name p {
+  font-size: 12px;
+  font-weight: 400;
+  color: #010101;
+}
+.edit-profile form input {
+  padding: 3px 5px;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+.edit-profile form label {
+  font-size: 14px;
+  color: #010101;
+  font-weight: 400;
+  cursor: pointer;
+}
+.edit-profile .skill-list {
+  height: 300px;
+  overflow: auto;
+}
+.edit-pro-footer {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  display: flex;
+  gap: 5px;
+  justify-content: end;
+}
+.edit-pro-footer button:first-child {
+  background-color: #ffffff !important;
+  color: #010101 !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  padding: 3px 20px !important;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+}
+.edit-pro-footer button:last-child {
+  background-color: #27ae60 !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  border: none;
+  border-radius: 6px;
+  padding: 3px 30px !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+}

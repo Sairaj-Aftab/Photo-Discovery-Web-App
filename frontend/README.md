@@ -9,4 +9,4 @@ Currently, two official plugins are available:
 
 Register
 Login page .....
-kyeo hom man
+Kapakapi fix

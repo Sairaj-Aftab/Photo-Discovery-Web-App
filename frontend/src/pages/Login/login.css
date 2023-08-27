@@ -32,3 +32,12 @@
   background-color: #27ae60;
   transform: scale(0.98);
 }
+
+.login-form p {
+  font-size: 14px;
+}
+.login-form p span {
+  text-decoration: underline;
+  cursor: pointer;
+  color: blue;
+}

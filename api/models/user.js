@@ -29,6 +29,13 @@ const userSchema = mongoose.Schema(
       type: String,
       default: null,
     },
+    skills: {
+      type: Array,
+      default: [],
+    },
+    location: {
+      type: String,
+    },
     isActivate: {
       type: Boolean,
       default: false,

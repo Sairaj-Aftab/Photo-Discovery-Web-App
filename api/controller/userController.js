@@ -193,10 +193,41 @@ export const logedIn = async (req, res, next) => {
  */
 export const logOut = async (req, res, next) => {
   try {
-    res
-      .clearCookie("authToken")
-      .status(200)
-      .json({ message: "Successfully log out" });
+    res.clearCookie("authToken");
+    res.status(200).json({ message: "Successfully log out" });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/**
+ * Profile Edit or Update
+ */
+export const editUser = async (req, res, next) => {
+  try {
+    const id = req.me._id.toString();
+    const profilePhoto = req.files.avatar[0].filename;
+    const coverPhoto = req.files.cover_photo[0].filename;
+    const { fullName, email, location, skills } = req.body;
+
+    const update = await User.findByIdAndUpdate(
+      id,
+      {
+        fullName,
+        email,
+        location,
+        skills,
+        profilePhoto,
+        coverPhoto,
+      },
+      { new: true }
+    );
+
+    if (update) {
+      return res
+        .status(200)
+        .json({ data: update, message: "Successfully updated" });
+    }
   } catch (error) {
     return next(error);
   }

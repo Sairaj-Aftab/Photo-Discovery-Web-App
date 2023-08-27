@@ -1,10 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { logedInMe, login, register } from "./authApiSlice";
+import {
+  editProfile,
+  logOut,
+  logedInMe,
+  login,
+  register,
+} from "./authApiSlice";
 
 const authSlice = createSlice({
   name: "auth",
   initialState: {
-    auth: null,
+    auth: localStorage.getItem("data")
+      ? JSON.parse(localStorage.getItem("data"))
+      : null,
     success: false,
     message: null,
     error: null,
@@ -32,13 +40,28 @@ const authSlice = createSlice({
         state.success = true;
         state.message = action.payload.message;
         state.auth = action.payload.user;
+        localStorage.setItem("data", JSON.stringify(action.payload.user));
       })
       .addCase(logedInMe.rejected, (state, action) => {
         state.auth = null;
       })
       .addCase(logedInMe.fulfilled, (state, action) => {
-        state.success = true;
         state.auth = action.payload;
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        state.error = "Log out faiied!";
+      })
+      .addCase(logOut.fulfilled, (state, action) => {
+        state.success = true;
+        state.auth = null;
+        localStorage.removeItem("data");
+      })
+      .addCase(editProfile.rejected, (state, action) => {
+        state.error = action.error.message;
+      })
+      .addCase(editProfile.fulfilled, (state, action) => {
+        state.success = true;
+        state.auth = action.payload.data;
       });
   },
 });

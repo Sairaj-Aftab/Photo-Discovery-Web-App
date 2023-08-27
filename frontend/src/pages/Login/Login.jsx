@@ -5,10 +5,12 @@ import "./login.css";
 import { toastify } from "../../utility/toast";
 import { login } from "../../features/auth/authApiSlice";
 import { authData, setMessageEmpty } from "../../features/auth/authSlice";
+import SignUp from "../SignUp/SignUp";
 
 const Login = ({ close }) => {
   const dispatch = useDispatch();
   const { error, message, success } = useSelector(authData);
+  const [showSignUp, setShowSignUp] = useState(false);
   const [input, setInput] = useState({
     auth: "",
     password: "",
@@ -28,11 +30,8 @@ const Login = ({ close }) => {
   };
 
   useEffect(() => {
-    if (message) {
-      toastify(message, "success");
-    }
-    if (error) {
-      toastify(error);
+    if (success) {
+      close();
     }
     if (message || error || success) {
       dispatch(setMessageEmpty());
@@ -41,25 +40,32 @@ const Login = ({ close }) => {
 
   return (
     <div>
-      <ModalBox title="Log in" close={close}>
-        <form onSubmit={handleSubmitLogin} className="login-form">
-          <input
-            type="text"
-            placeholder="Email or user name"
-            name="auth"
-            value={input.auth}
-            onChange={handleValueChange}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={input.password}
-            onChange={handleValueChange}
-          />
-          <button type="submit">Log in</button>
-        </form>
-      </ModalBox>
+      {showSignUp && <SignUp close={() => setShowSignUp(false)} />}
+      {!showSignUp && (
+        <ModalBox title="Log in" close={close}>
+          <form onSubmit={handleSubmitLogin} className="login-form">
+            <input
+              type="text"
+              placeholder="Email or user name"
+              name="auth"
+              value={input.auth}
+              onChange={handleValueChange}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              name="password"
+              value={input.password}
+              onChange={handleValueChange}
+            />
+            <p>
+              Don’t have an account?{" "}
+              <span onClick={() => setShowSignUp(!showSignUp)}>Register</span>
+            </p>
+            <button type="submit">Log in</button>
+          </form>
+        </ModalBox>
+      )}
     </div>
   );
 };

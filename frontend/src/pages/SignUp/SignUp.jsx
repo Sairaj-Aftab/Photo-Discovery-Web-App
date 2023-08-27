@@ -30,12 +30,6 @@ const SignUp = ({ close }) => {
   };
 
   useEffect(() => {
-    if (message) {
-      toastify(message, "success");
-    }
-    if (error) {
-      toastify(error);
-    }
     if (success) {
       close();
       setInput({ fullName: "", auth: "", password: "" });
