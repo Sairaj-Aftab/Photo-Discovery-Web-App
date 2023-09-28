@@ -4,6 +4,7 @@ import env from "dotenv";
 import cookieParser from "cookie-parser";
 import colors from "colors";
 import user from "./routes/user.js";
+import photos from "./routes/photos.js";
 import connectMongoDB from "./config/db.js";
 import errorHandler from "./middleware/errorHandler.js";
 import path from "path";
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, "api/public")));
 
 // Api routes
 app.use("/api/v1/user", user);
+app.use("/api/v1/photos", photos);
 
 // Error Handler
 app.use(errorHandler);

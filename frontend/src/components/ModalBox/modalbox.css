@@ -51,7 +51,7 @@
 }
 
 /* Responsive */
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 766px) {
   .modal-box .modal-box-wraper {
     width: 100% !important;
   }
@@ -59,3 +59,11 @@
     width: auto !important;
   }
 }
+/* @media screen and (max-width: 400px) {
+  .modal-box .modal-box-wraper {
+    width: 100% !important;
+  }
+  .login-form {
+    width: auto !important;
+  }
+} */

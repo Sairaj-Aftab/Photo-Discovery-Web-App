@@ -110,3 +110,33 @@
   justify-content: center;
   align-items: center;
 }
+.input-title {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 20px;
+}
+.input-title input {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 3px 5px;
+  border: 1px solid #ccc;
+}
+
+/* Responsive */
+@media screen and (max-width: 766px) {
+  .instants-images {
+    width: 100%;
+  }
+  .upload-icon {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 389px) {
+  .instants-images .photos {
+    width: 100%;
+  }
+  .instants-images .photos img {
+    height: auto;
+  }
+}

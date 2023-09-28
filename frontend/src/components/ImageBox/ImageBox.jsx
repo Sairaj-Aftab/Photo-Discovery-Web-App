@@ -1,15 +1,15 @@
-import { useEffect, useState } from "react";
-import { BsDownload } from "react-icons/bs";
-import axios from "axios";
-import { createClient } from "pexels";
+import { BsDownload, BsBookmarks } from "react-icons/bs";
 import "./imagebox.css";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { photosData } from "../../features/photos/photosSlice";
+import Avatar from "../Avatar";
 
-const API_KEY = "B7H7H2rBWApijlw6PP3C2ma73GIxKelmyJR78PDq6tpA11niXaS8u5c2";
-const client = createClient(API_KEY);
+// const API_KEY = "B7H7H2rBWApijlw6PP3C2ma73GIxKelmyJR78PDq6tpA11niXaS8u5c2";
+// const client = createClient(API_KEY);
 
 const ImageBox = () => {
-  const [query, setSearch] = useState();
-  const [photos, setPhotos] = useState([]);
+  const { photos, loader } = useSelector(photosData);
 
   const handleDownload = (url) => {
     fetch(url)
@@ -24,33 +24,57 @@ const ImageBox = () => {
       });
   };
 
-  const searchSubmit = (e) => {
-    e.preventDefault();
-    client.photos
-      .search({ query, per_page: 10 })
-      .then((photos) => setPhotos(photos.photos));
-  };
+  const firstCol = Math.ceil(photos?.length / 3);
 
   return (
     <div>
-      <form onSubmit={searchSubmit}>
-        <input type="text" onChange={(e) => setSearch(e.target.value)} />
-        <button type="submit">search</button>
-      </form>
-      {photos.length < 1 && (
-        <div>
-          <h2>Photos not found</h2>
+      <div className="image-box">
+        <div className="column">
+          {photos &&
+            [...photos].slice(0, firstCol).map((data, index) => {
+              return (
+                <div key={index} className="box-inner">
+                  <button className="save">
+                    <BsBookmarks />
+                  </button>
+                  <img src={data?.filename?.secure_url} alt="" />
+                  <Link to={`${data?.userId?.userName}`} className="user-pro">
+                    <Avatar
+                      classList="user-pro-img"
+                      link={data?.userId?.profilePhoto?.secure_url}
+                      alt={data?.userId?.fullName}
+                    />
+                    <h3>{data?.userId?.fullName}</h3>
+                  </Link>
+                  <button
+                    onClick={() => handleDownload(data?.filename?.secure_url)}
+                    className="download"
+                  >
+                    <BsDownload />
+                  </button>
+                </div>
+              );
+            })}
         </div>
-      )}
-      {photos.length > 0 && (
-        <div className="image-box">
-          <div className="column">
-            {photos.slice(0, 3).map((data, index) => {
+        <div className="column">
+          {photos &&
+            [...photos].slice(firstCol, firstCol * 2).map((data, index) => {
               return (
-                <div className="box-inner">
-                  <img src={data.src.medium} alt="" />
+                <div key={index} className="box-inner">
+                  <button className="save">
+                    <BsBookmarks />
+                  </button>
+                  <img src={data?.filename?.secure_url} alt="" />
+                  <Link to={`${data?.userId?.userName}`} className="user-pro">
+                    <Avatar
+                      classList="user-pro-img"
+                      link={data?.userId?.profilePhoto?.secure_url}
+                      alt={data?.userId?.fullName}
+                    />
+                    <h3>{data?.userId?.fullName}</h3>
+                  </Link>
                   <button
-                    onClick={() => handleDownload(data.src.original)}
+                    onClick={() => handleDownload(data?.filename?.secure_url)}
                     className="download"
                   >
                     <BsDownload />
@@ -58,39 +82,35 @@ const ImageBox = () => {
                 </div>
               );
             })}
-          </div>
-          <div className="column">
-            {photos.slice(3, 6).map((data, index) => {
-              return (
-                <div className="box-inner">
-                  <img src={data.src.medium} alt="" />
-                  <button
-                    onClick={() => handleDownload(data.src.original)}
-                    className="download"
-                  >
-                    <BsDownload />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-          <div className="column">
-            {photos.slice(6, 10).map((data, index) => {
-              return (
-                <div className="box-inner">
-                  <img src={data.src.medium} alt="" />
-                  <button
-                    onClick={() => handleDownload(data.src.original)}
-                    className="download"
-                  >
-                    <BsDownload />
-                  </button>
-                </div>
-              );
-            })}
-          </div>
         </div>
-      )}
+        <div className="column">
+          {photos &&
+            [...photos].slice(firstCol * 2, firstCol * 3).map((data, index) => {
+              return (
+                <div key={index} className="box-inner">
+                  <button className="save">
+                    <BsBookmarks />
+                  </button>
+                  <img src={data?.filename?.secure_url} alt="" />
+                  <Link to={`${data?.userId?.userName}`} className="user-pro">
+                    <Avatar
+                      classList="user-pro-img"
+                      link={data?.userId?.profilePhoto?.secure_url}
+                      alt={data?.userId?.fullName}
+                    />
+                    <h3>{data?.userId?.fullName}</h3>
+                  </Link>
+                  <button
+                    onClick={() => handleDownload(data?.filename?.secure_url)}
+                    className="download"
+                  >
+                    <BsDownload />
+                  </button>
+                </div>
+              );
+            })}
+        </div>
+      </div>
     </div>
   );
 };

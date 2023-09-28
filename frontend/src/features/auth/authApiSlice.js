@@ -70,3 +70,15 @@ export const editProfile = createAsyncThunk(
     }
   }
 );
+// get Single User
+export const getSingleUser = createAsyncThunk("user/singleUser", async (id) => {
+  try {
+    const response = await axios.get(
+      `http://localhost:5050/api/v1/user/${id}`,
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    throw new Error(error.response.data.message);
+  }
+});

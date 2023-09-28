@@ -22,12 +22,17 @@ const userSchema = mongoose.Schema(
       trim: true,
     },
     profilePhoto: {
-      type: String,
+      type: mongoose.Schema.Types.Mixed,
       default: null,
     },
     coverPhoto: {
-      type: String,
+      type: mongoose.Schema.Types.Mixed,
       default: null,
+    },
+    photos: {
+      type: [mongoose.Schema.Types.ObjectId],
+      ref: "Photos",
+      default: [],
     },
     skills: {
       type: Array,

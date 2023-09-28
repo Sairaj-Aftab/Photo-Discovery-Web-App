@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import cloudinary from "../utility/cloudinary.js";
 import createError from "../utility/createError.js";
 import { hashPassword, passwordVerify } from "../utility/hash.js";
 import { getRandomCode } from "../utility/math.js";
@@ -145,7 +146,7 @@ export const login = async (req, res, next) => {
     if (!isEmail(auth)) {
       return next(createError(404, "Email is not matching"));
     }
-    const user = await User.findOne({ email: auth });
+    const user = await User.findOne({ email: auth }).populate("photos");
     if (!user) {
       return next(createError(404, "User not found"));
     }
@@ -161,7 +162,7 @@ export const login = async (req, res, next) => {
           secure: process.env.APP_ENV == "Development" ? false : true,
           sameSite: "strict",
           path: "/",
-          maxAge: 7 * 24 * 60 * 1000,
+          maxAge: 365 * 24 * 60 * 60 * 1000, // 365 days in milliseconds
         })
         .json({
           message: "Successfully login",
@@ -206,9 +207,42 @@ export const logOut = async (req, res, next) => {
 export const editUser = async (req, res, next) => {
   try {
     const id = req.me._id.toString();
-    const profilePhoto = req.files.avatar[0].filename;
-    const coverPhoto = req.files.cover_photo[0].filename;
     const { fullName, email, location, skills } = req.body;
+
+    const user = await User.findById(id);
+
+    let avatar = user.profilePhoto;
+    let cover = user.coverPhoto;
+    if (req.files.avatar) {
+      if (user.profilePhoto) {
+        await cloudinary.uploader.destroy(user.profilePhoto.public_id);
+      }
+      const uploadAvatar = await cloudinary.uploader.upload(
+        req.files.avatar[0].path,
+        {
+          folder: "Photo_Discovery_Avatar",
+        }
+      );
+      avatar = {
+        public_id: uploadAvatar.public_id,
+        secure_url: uploadAvatar.secure_url,
+      };
+    }
+    if (req.files.cover_photo) {
+      if (user.coverPhoto) {
+        await cloudinary.uploader.destroy(user.coverPhoto.public_id);
+      }
+      const uploadCover = await cloudinary.uploader.upload(
+        req.files.cover_photo[0].path,
+        {
+          folder: "Photo_Discovery_Cover",
+        }
+      );
+      cover = {
+        public_id: uploadCover.public_id,
+        secure_url: uploadCover.secure_url,
+      };
+    }
 
     const update = await User.findByIdAndUpdate(
       id,
@@ -217,8 +251,8 @@ export const editUser = async (req, res, next) => {
         email,
         location,
         skills,
-        profilePhoto,
-        coverPhoto,
+        profilePhoto: avatar,
+        coverPhoto: cover,
       },
       { new: true }
     );
@@ -227,6 +261,23 @@ export const editUser = async (req, res, next) => {
       return res
         .status(200)
         .json({ data: update, message: "Successfully updated" });
+    }
+  } catch (error) {
+    return next(error);
+  }
+};
+/**
+ * Get Single User
+ */
+export const getSingleUser = async (req, res, next) => {
+  try {
+    const { userName } = req.params;
+
+    const user = await User.findOne({ userName }).populate("photos");
+    if (user) {
+      res.status(200).json({ user, message: "Okay" });
+    } else {
+      return next(createError(404, "User not found"));
     }
   } catch (error) {
     return next(error);

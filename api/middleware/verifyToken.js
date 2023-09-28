@@ -11,7 +11,7 @@ const verifyToken = async (req, res, next) => {
       if (err) {
         return res.status(404).json({ message: "hey! Invalid Token" });
       }
-      const me = await User.findOne({ _id: decode.id });
+      const me = await User.findOne({ _id: decode.id }).populate("photos");
       req.me = me;
       next();
     });

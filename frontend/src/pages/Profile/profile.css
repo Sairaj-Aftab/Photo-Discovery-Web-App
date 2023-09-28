@@ -96,26 +96,90 @@
 .profile .profile-wraper .uploaded-images {
   background-color: var(--white-color);
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   box-shadow: var(--box-shadow-1);
   padding: 12px;
   border-radius: 8px;
 }
-.profile .profile-wraper .uploaded-images .first-column {
+.profile .profile-wraper .uploaded-images .column {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.profile .profile-wraper .uploaded-images .second-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.profile .profile-wraper .uploaded-images .third-column {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.profile .profile-wraper .uploaded-images img {
+.profile .profile-wraper .uploaded-images .column .images {
   width: 300px;
+  position: relative;
+}
+.profile .profile-wraper .uploaded-images .column .images .trash {
+  background-color: #ebe9e7;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+}
+.profile .profile-wraper .uploaded-images .column .images .download {
+  background-color: #ebe9e7;
+  font-size: 20px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+}
+.profile .profile-wraper .uploaded-images .column .images:hover .trash,
+.profile .profile-wraper .uploaded-images .column .images:hover .download {
+  visibility: visible;
+  opacity: 100;
+}
+
+@media screen and (max-width: 460px) {
+  .profile .profile-wraper {
+    margin-top: 65px;
+    width: 95%;
+    gap: 15px;
+  }
+  .profile .profile-wraper .top-header .profile-cover-pic .profile-pic {
+    transform: translate(10px, -50px);
+  }
+  .profile .profile-wraper .top-header .profile-name,
+  .profile .profile-wraper .top-header .profile-address {
+    padding: 0 10px;
+  }
+  .profile .profile-wraper .top-header .profile-edit-button {
+    right: 10px;
+    font-size: 12px;
+  }
+  .profile .profile-wraper .all-skills .skill-title {
+    padding: 0 10px;
+  }
+  .profile .profile-wraper .all-skills .skill-tags {
+    margin: 8px 10px 0 10px;
+    gap: 5px;
+  }
+  .profile .profile-wraper .all-skills .skill-tags span {
+    padding: 2px 5px;
+    font-size: 12px;
+  }
+  .profile .profile-wraper .uploaded-images .column .images {
+    width: 100%;
+  }
 }

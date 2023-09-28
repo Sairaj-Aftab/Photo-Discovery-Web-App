@@ -6,7 +6,7 @@
 }
 .image-box .column {
   flex: 32%;
-  max-width: 32%;
+  /* max-width: 32%; */
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -15,13 +15,13 @@
   position: relative;
 }
 .image-box .column .box-inner .download {
-  background-color: #ebe9e7;
-  font-size: 30px;
+  background-color: #ffffff;
+  font-size: 17px;
   position: absolute;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: 50px;
+  bottom: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,9 +29,31 @@
   border: 1px solid #ccc;
   visibility: hidden;
   opacity: 0;
+  cursor: pointer;
+}
+.image-box .column .box-inner .save {
+  background-color: #ffffff;
+  font-size: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
 }
 .image-box .column .box-inner .download:hover {
-  background-color: #ffffff;
+  background-color: #ebe9e7;
+}
+.image-box .column .box-inner .save:hover {
+  background-color: #ebe9e7;
 }
 .image-box .column img {
   vertical-align: middle;
@@ -41,12 +63,37 @@
 .image-box .column img:hover {
   filter: brightness(0.8);
 }
-.image-box .column .box-inner:hover .download {
+.image-box .column .box-inner:hover .download,
+.image-box .column .box-inner:hover .save,
+.image-box .column .box-inner:hover .user-pro {
   visibility: visible;
   opacity: 100;
 }
+.image-box .column .box-inner .user-pro {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.image-box .column .box-inner .user-pro .user-pro-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.image-box .column .box-inner .user-pro h3 {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+}
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 420px) {
   .image-box {
     gap: 8px;
     flex-direction: column;

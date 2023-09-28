@@ -4,11 +4,24 @@
   flex-direction: column;
   gap: 3px;
 }
+
 .edit-profile form .form-list {
   display: flex;
   flex-direction: column;
   gap: 5px;
   padding: 10px 10px 0 10px;
+  position: relative;
+}
+.edit-profile form .form-list .edit-loading {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 form .edit-image-upload {
   display: flex;
@@ -97,4 +110,10 @@ form .edit-image-upload div:last-child input {
   padding: 3px 30px !important;
   font-size: 14px !important;
   font-weight: 400 !important;
+}
+
+@media screen and (max-width: 766px) {
+  .edit-profile form {
+    width: 100%;
+  }
 }

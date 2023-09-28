@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModalBox from "../../components/ModalBox/ModalBox";
 import { skillsList } from "../../utility/skillList";
 import { useDispatch, useSelector } from "react-redux";
 import "./editprofile.css";
 import { authData } from "../../features/auth/authSlice";
 import { editProfile } from "../../features/auth/authApiSlice";
+import { toastify } from "../../utility/toast";
+import Loading from "../../components/Loading/Loading";
 
 const EditProfile = ({ close }) => {
   const dispatch = useDispatch();
-  const { auth } = useSelector(authData);
+  const { auth, loader, error, success } = useSelector(authData);
   const [proPic, setProPic] = useState();
   const [coverPic, setCoverPic] = useState();
   const [seletSkills, setSkill] = useState([...auth?.skills]);
@@ -34,16 +36,31 @@ const EditProfile = ({ close }) => {
   const changeInput = (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+  // console.log(seletSkills);
 
   const submitEdit = (e) => {
     e.preventDefault();
     const data = new FormData();
+    for (let i = 0; i < seletSkills.length; i++) {
+      data.append("skills", seletSkills[i]);
+    }
     data.append("avatar", proPic);
     data.append("cover_photo", coverPic);
     data.append("fullName", input.fullName);
+    data.append("email", input.email);
+    data.append("location", input.location);
+
     dispatch(editProfile({ data: data }));
-    close();
   };
+
+  useEffect(() => {
+    if (error) {
+      toastify(error);
+    }
+    if (success) {
+      close();
+    }
+  }, [error, success]);
   return (
     <div className="edit-profile">
       <ModalBox title="Edit profile" close={close}>
@@ -55,6 +72,11 @@ const EditProfile = ({ close }) => {
               method="put"
             >
               <div className="form-list">
+                {loader && (
+                  <div className="edit-loading">
+                    <Loading />
+                  </div>
+                )}
                 <div className="edit-image-upload">
                   <div>
                     Profile picture{" "}
@@ -119,7 +141,9 @@ const EditProfile = ({ close }) => {
               </div>
               <div className="edit-pro-footer">
                 <button onClick={() => close()}>Cancel</button>
-                <button type="submit">Submit</button>
+                <button type="submit">
+                  {loader ? "Submitting....." : "Submit"}
+                </button>
               </div>
             </form>
           </div>
