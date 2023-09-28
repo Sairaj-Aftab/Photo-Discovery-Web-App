@@ -68,7 +68,7 @@ const EditProfile = ({ close }) => {
           <div className="edit-profile-wraper">
             <form
               onSubmit={submitEdit}
-              enctype="multipart/form-data"
+              encType="multipart/form-data"
               method="put"
             >
               <div className="form-list">
