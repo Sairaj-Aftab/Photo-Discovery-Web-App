@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "server": "nodemon api/server.js",
     "app": "npm start --prefix gallery_app",
-    "start": "concurrently \"npm run server\" \"npm run app\""
+    "start": "nodemon api/server.js"
   },
   "author": "Sairaj",
   "license": "ISC",
