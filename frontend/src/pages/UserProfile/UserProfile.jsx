@@ -7,6 +7,7 @@ import { useParams } from "react-router-dom";
 import { getSingleUser } from "../../features/auth/authApiSlice";
 import { authData, setMessageEmpty } from "../../features/auth/authSlice";
 import Avatar from "../../components/Avatar";
+import Loading from "../../components/Loading/Loading";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -34,104 +35,114 @@ const UserProfile = () => {
   const firstCol = Math.ceil(singleUser?.photos?.length / 3);
   return (
     <div className="profile">
-      <div className="profile-wraper">
-        <div className="top-header">
-          <div className="profile-cover-pic">
-            <img
-              className="cover-pic"
-              src={
-                singleUser?.coverPhoto
-                  ? `${singleUser?.coverPhoto?.secure_url}`
-                  : coverImg
-              }
-              alt={singleUser?.fullName}
-            />
-            <Avatar
-              classList="profile-pic"
-              link={singleUser?.profilePhoto?.secure_url}
-              alt={singleUser?.fullName}
-            />
-          </div>
-          <h1 className="profile-name">{singleUser?.fullName}</h1>
-          <h6 className="profile-address">
-            <MdOutlineMail />
-            {singleUser?.email}
-          </h6>
-          <h6 className="profile-address">
-            <MdOutlineLocationOn />
-            {singleUser?.location}
-          </h6>
+      {loader ? (
+        <div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
+          <Loading />
         </div>
-        <div className="all-skills">
-          <h1 className="skill-title">Skills</h1>
-          <div className="skill-tags">
-            {singleUser?.skills?.map((skill, index) => (
-              <span key={index}>{skill}</span>
-            ))}
+      ) : (
+        <div className="profile-wraper">
+          <div className="top-header">
+            <div className="profile-cover-pic">
+              <img
+                className="cover-pic"
+                src={
+                  singleUser?.coverPhoto
+                    ? `${singleUser?.coverPhoto?.secure_url}`
+                    : coverImg
+                }
+                alt={singleUser?.fullName}
+              />
+              <Avatar
+                classList="profile-pic"
+                link={singleUser?.profilePhoto?.secure_url}
+                alt={singleUser?.fullName}
+              />
+            </div>
+            <h1 className="profile-name">{singleUser?.fullName}</h1>
+            <h6 className="profile-address">
+              <MdOutlineMail />
+              {singleUser?.email}
+            </h6>
+            <h6 className="profile-address">
+              <MdOutlineLocationOn />
+              {singleUser?.location}
+            </h6>
           </div>
-        </div>
-        <div className="uploaded-images">
-          <div className="column">
-            {/* {auth?.photos?.map((data, index) => (
+          <div className="all-skills">
+            <h1 className="skill-title">Skills</h1>
+            <div className="skill-tags">
+              {singleUser?.skills?.map((skill, index) => (
+                <span key={index}>{skill}</span>
+              ))}
+            </div>
+          </div>
+          <div className="uploaded-images">
+            <div className="column">
+              {/* {auth?.photos?.map((data, index) => (
           <img key={index} src={data.filename.secure_url} alt="" />
         ))} */}
-            {singleUser?.photos &&
-              [...singleUser?.photos].slice(0, firstCol).map((data, index) => {
-                return (
-                  <div key={index} className="images">
-                    <img src={data?.filename?.secure_url} alt="" />
-                    <button
-                      onClick={() => handleDownload(data?.filename?.secure_url)}
-                      className="download"
-                    >
-                      <BsDownload />
-                    </button>
-                  </div>
-                );
-              })}
-          </div>
-          <div className="column">
-            {singleUser?.photos &&
-              [...singleUser?.photos]
-                .slice(firstCol, firstCol * 2)
-                .map((data, index) => {
-                  return (
-                    <div key={index} className="images">
-                      <img src={data?.filename?.secure_url} alt="" />
-                      <button
-                        onClick={() =>
-                          handleDownload(data?.filename?.secure_url)
-                        }
-                        className="download"
-                      >
-                        <BsDownload />
-                      </button>
-                    </div>
-                  );
-                })}
-          </div>
-          <div className="column">
-            {singleUser?.photos &&
-              [...singleUser?.photos]
-                .slice(firstCol * 2, firstCol * 3)
-                .map((data, index) => {
-                  return (
-                    <div key={index} className="images">
-                      <img src={data?.filename?.secure_url} alt="" />
-                      <button
-                        onClick={() =>
-                          handleDownload(data?.filename?.secure_url)
-                        }
-                        className="download"
-                      >
-                        <BsDownload />
-                      </button>
-                    </div>
-                  );
-                })}
+              {singleUser?.photos &&
+                [...singleUser?.photos]
+                  .slice(0, firstCol)
+                  .map((data, index) => {
+                    return (
+                      <div key={index} className="images">
+                        <img src={data?.filename?.secure_url} alt="" />
+                        <button
+                          onClick={() =>
+                            handleDownload(data?.filename?.secure_url)
+                          }
+                          className="download"
+                        >
+                          <BsDownload />
+                        </button>
+                      </div>
+                    );
+                  })}
+            </div>
+            <div className="column">
+              {singleUser?.photos &&
+                [...singleUser?.photos]
+                  .slice(firstCol, firstCol * 2)
+                  .map((data, index) => {
+                    return (
+                      <div key={index} className="images">
+                        <img src={data?.filename?.secure_url} alt="" />
+                        <button
+                          onClick={() =>
+                            handleDownload(data?.filename?.secure_url)
+                          }
+                          className="download"
+                        >
+                          <BsDownload />
+                        </button>
+                      </div>
+                    );
+                  })}
+            </div>
+            <div className="column">
+              {singleUser?.photos &&
+                [...singleUser?.photos]
+                  .slice(firstCol * 2, firstCol * 3)
+                  .map((data, index) => {
+                    return (
+                      <div key={index} className="images">
+                        <img src={data?.filename?.secure_url} alt="" />
+                        <button
+                          onClick={() =>
+                            handleDownload(data?.filename?.secure_url)
+                          }
+                          className="download"
+                        >
+                          <BsDownload />
+                        </button>
+                      </div>
+                    );
+                  })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

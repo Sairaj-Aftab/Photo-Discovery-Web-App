@@ -6,8 +6,6 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon server.js",
-    "app": "npm start --prefix gallery_app",
     "start": "nodemon server.js"
   },
   "author": "Sairaj",
