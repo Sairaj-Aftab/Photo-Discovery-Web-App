@@ -2,7 +2,7 @@
   "name": "gallery_app",
   "version": "1.0.0",
   "description": "This is a gallery app",
-  "main": "api/server.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
