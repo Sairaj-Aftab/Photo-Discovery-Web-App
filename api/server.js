@@ -13,7 +13,7 @@ const __dirname = path.resolve();
 const app = express();
 env.config();
 const corsOptions = {
-  origin: "http://localhost:3000", //included origin as true
+  origin: "https://photo-discovery-web-app.vercel.app", //included origin as true
   credentials: true, //included credentials as true
 };
 app.use(cors(corsOptions));
