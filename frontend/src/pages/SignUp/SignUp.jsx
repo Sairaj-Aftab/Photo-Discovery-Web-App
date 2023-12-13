@@ -34,6 +34,9 @@ const SignUp = ({ close }) => {
       close();
       setInput({ fullName: "", auth: "", password: "" });
     }
+    if (error) {
+      toastify(error);
+    }
     if (success || message || error) {
       dispatch(setMessageEmpty());
     }

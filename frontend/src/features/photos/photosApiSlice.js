@@ -6,7 +6,7 @@ export const createPost = createAsyncThunk(
   async ({ data }) => {
     try {
       const response = await axios.post(
-        `http://localhost:5050/api/v1/photos/create_post`,
+        `${import.meta.env.VITE_API_URL}/api/v1/photos/create_post`,
         data,
         {
           withCredentials: true,
@@ -30,9 +30,12 @@ export const getAllPhotos = createAsyncThunk(
   "photos/getAllPhotos",
   async () => {
     try {
-      const response = await axios.get(`http://localhost:5050/api/v1/photos`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/api/v1/photos`,
+        {
+          withCredentials: true,
+        }
+      );
       return response.data;
     } catch (error) {
       throw new Error(error.response.data.message);
@@ -45,7 +48,7 @@ export const searchPhotos = createAsyncThunk(
   async ({ search }) => {
     try {
       const response = await axios.post(
-        `http://localhost:5050/api/v1/photos/search`,
+        `${import.meta.env.VITE_API_URL}/api/v1/photos/search`,
         { search },
         {
           withCredentials: true,
@@ -64,7 +67,7 @@ export const deletePhoto = createAsyncThunk(
   async (id) => {
     try {
       const response = await axios.delete(
-        `http://localhost:5050/api/v1/photos/${id}`,
+        `${import.meta.env.VITE_API_URL}/api/v1/photos/${id}`,
         {
           withCredentials: true,
         }

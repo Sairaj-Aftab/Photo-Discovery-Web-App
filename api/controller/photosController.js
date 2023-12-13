@@ -44,8 +44,8 @@ export const createPost = async (req, res, next) => {
       { new: true }
     );
 
-    if (post && userPhotos) {
-      res.status(200).json({ post, message: "Okay" });
+    if (post.length >= 0 && userPhotos) {
+      return res.status(200).json({ post, message: "Okay" });
     }
   } catch (error) {
     return next(error);

@@ -4,7 +4,7 @@ import axios from "axios";
 export const register = createAsyncThunk("user/register", async (data) => {
   try {
     const response = await axios.post(
-      `http://localhost:5050/api/v1/user/register`,
+      `${import.meta.env.VITE_API_URL}/api/v1/user/register`,
       data,
       { withCredentials: true }
     );
@@ -19,7 +19,7 @@ export const register = createAsyncThunk("user/register", async (data) => {
 export const login = createAsyncThunk("user/login", async (data) => {
   try {
     const response = await axios.post(
-      `http://localhost:5050/api/v1/user/login`,
+      `${import.meta.env.VITE_API_URL}/api/v1/user/login`,
       data,
       { withCredentials: true }
     );
@@ -33,7 +33,7 @@ export const login = createAsyncThunk("user/login", async (data) => {
 export const logedInMe = createAsyncThunk("user/loginme", async () => {
   try {
     const response = await axios.get(
-      `http://localhost:5050/api/v1/user/logedIn`,
+      `${import.meta.env.VITE_API_URL}/api/v1/user/logedIn`,
       { withCredentials: true }
     );
     return response.data;
@@ -45,7 +45,7 @@ export const logedInMe = createAsyncThunk("user/loginme", async () => {
 export const logOut = createAsyncThunk("user/logOut", async () => {
   try {
     const response = await axios.post(
-      `http://localhost:5050/api/v1/user/logout`,
+      `${import.meta.env.VITE_API_URL}/api/v1/user/logout`,
       {},
       { withCredentials: true }
     );
@@ -60,7 +60,7 @@ export const editProfile = createAsyncThunk(
   async ({ data }) => {
     try {
       const response = await axios.put(
-        `http://localhost:5050/api/v1/user/edit_user`,
+        `${import.meta.env.VITE_API_URL}/api/v1/user/edit_user`,
         data,
         { withCredentials: true }
       );
@@ -74,7 +74,7 @@ export const editProfile = createAsyncThunk(
 export const getSingleUser = createAsyncThunk("user/singleUser", async (id) => {
   try {
     const response = await axios.get(
-      `http://localhost:5050/api/v1/user/${id}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/user/${id}`,
       { withCredentials: true }
     );
     return response.data;

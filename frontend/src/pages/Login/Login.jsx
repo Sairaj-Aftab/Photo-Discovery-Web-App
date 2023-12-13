@@ -33,6 +33,9 @@ const Login = ({ close }) => {
     if (success) {
       close();
     }
+    if (error) {
+      toastify(error);
+    }
     if (message || error || success) {
       dispatch(setMessageEmpty());
     }
